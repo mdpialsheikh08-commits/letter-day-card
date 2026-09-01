@@ -9,12 +9,18 @@
 <title>1 September — Letter Day 💌</title>
 
 <style>
+
+/* =========================================================
+   BASIC RESET
+   ========================================================= */
+
 *{
   box-sizing:border-box;
   -webkit-tap-highlight-color:transparent;
 }
 
-html,body{
+html,
+body{
   width:100%;
   min-height:100%;
   margin:0;
@@ -25,387 +31,656 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
+
   overflow:hidden;
-  color:#493b3d;
-  font-family:Georgia,"Noto Serif Bengali",serif;
+
+  font-family:
+    Georgia,
+    "Noto Serif Bengali",
+    "Times New Roman",
+    serif;
+
+  color:#4d3b3e;
+
   background:
-    radial-gradient(circle at 20% 20%,rgba(255,255,255,.8),transparent 30%),
-    radial-gradient(circle at 80% 70%,rgba(255,220,220,.45),transparent 35%),
-    linear-gradient(135deg,#f5e5e3,#fff8f2,#eadcdf);
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(255,255,255,.85),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(245,210,215,.45),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #f4e3e1,
+      #fff8f2,
+      #eadce0
+    );
 }
+
 
 /* =========================================================
-   CUSTOMIZATION AREA
-   1. FRONT-CARD IMAGE/DESIGN:
-      Change the .envelope-front background below.
-   2. INSIDE-CARD IMAGE:
-      Change .letter-image background-image below.
-   3. YOUR LETTER:
-      Replace the text inside #letterText in the HTML.
-   4. NAME / DATE:
-      Change the values inside the .date-title and .date-subtitle.
-   5. BACKGROUND MUSIC:
-      Change MUSIC_URL in the JavaScript section.
+   BACKGROUND
    ========================================================= */
 
-
-/* ---------- Ambient background ---------- */
-
-.ambient{
+.background{
   position:fixed;
   inset:0;
-  pointer-events:none;
   overflow:hidden;
+  pointer-events:none;
 }
 
-.glow{
+.background-glow{
   position:absolute;
-  width:280px;
-  height:280px;
+
+  width:300px;
+  height:300px;
+
   border-radius:50%;
-  background:rgba(255,255,255,.35);
-  filter:blur(60px);
-  animation:glowMove 9s ease-in-out infinite alternate;
+
+  background:rgba(255,255,255,.4);
+
+  filter:blur(70px);
+
+  animation:
+    glowMove 10s ease-in-out infinite alternate;
 }
 
-.glow.one{
-  top:-100px;
-  left:-80px;
+.background-glow.one{
+  top:-130px;
+  left:-100px;
 }
 
-.glow.two{
-  right:-120px;
-  bottom:-80px;
+.background-glow.two{
+  right:-130px;
+  bottom:-120px;
+
   animation-delay:2s;
 }
 
 @keyframes glowMove{
-  from{transform:translate(0,0);}
-  to{transform:translate(70px,35px);}
+
+  from{
+    transform:translate(0,0);
+  }
+
+  to{
+    transform:translate(70px,40px);
+  }
+
 }
+
+
+/* Small floating particles */
 
 .particle{
   position:absolute;
+
   width:3px;
   height:3px;
+
   border-radius:50%;
+
   background:rgba(255,255,255,.7);
-  box-shadow:0 0 12px rgba(255,255,255,.8);
-  animation:particleFloat linear infinite;
+
+  box-shadow:
+    0 0 12px rgba(255,255,255,.9);
+
+  animation:
+    particleMove linear infinite;
 }
 
-@keyframes particleFloat{
+@keyframes particleMove{
+
   from{
     transform:translateY(110vh);
     opacity:0;
   }
-  15%{opacity:.8;}
-  85%{opacity:.5;}
+
+  15%{
+    opacity:.8;
+  }
+
+  80%{
+    opacity:.45;
+  }
+
   to{
     transform:translateY(-20vh);
     opacity:0;
   }
-}
 
-
-/* ---------- Main ---------- */
-
-.container{
-  position:relative;
-  z-index:10;
-  width:92%;
-  max-width:430px;
-  text-align:center;
-}
-
-
-/* ---------- Envelope ---------- */
-
-.envelope-wrap{
-  position:relative;
-  width:100%;
-  height:280px;
-  perspective:1400px;
-}
-
-.envelope{
-  position:absolute;
-  inset:0;
-  transform-style:preserve-3d;
-  filter:drop-shadow(0 25px 30px rgba(69,43,48,.18));
-}
-
-.envelope-body{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-  border-radius:14px;
-  border:1px solid rgba(117,77,84,.22);
-  background:
-    linear-gradient(145deg,#fffdf9,#f7e9e4);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.9),
-    inset 0 -12px 25px rgba(122,76,83,.05);
 }
 
 
 /* =========================================================
-   FRONT-CARD IMAGE/DESIGN
-   Replace this background if you want your own design/image.
+   MAIN CONTAINER
    ========================================================= */
 
-.envelope-front{
-  position:absolute;
-  inset:0;
-  z-index:6;
-  pointer-events:none;
-  border-radius:14px;
-  background:
-    linear-gradient(145deg,transparent 48.8%,rgba(225,197,190,.9) 49.5%,transparent 50.2%),
-    linear-gradient(35deg,transparent 48.8%,rgba(225,197,190,.9) 49.5%,transparent 50.2%);
+.container{
+  position:relative;
+
+  z-index:10;
+
+  width:92%;
+  max-width:430px;
+
+  text-align:center;
 }
 
 
-/* ---------- Flap ---------- */
+/* =========================================================
+   ENVELOPE AREA
+   ========================================================= */
 
-.flap{
-  position:absolute;
-  z-index:8;
-  top:0;
-  left:0;
+.envelope-area{
+
+  position:relative;
+
   width:100%;
-  height:62%;
-  transform-origin:top center;
-  transform-style:preserve-3d;
-  transition:
-    transform 1.45s cubic-bezier(.22,.75,.18,1),
-    z-index 0s 1.1s;
 
-  clip-path:polygon(0 0,100% 0,50% 100%);
+  height:280px;
+
+  perspective:1400px;
+}
+
+
+/* =========================================================
+   ENVELOPE
+   ========================================================= */
+
+.envelope{
+
+  position:absolute;
+
+  left:0;
+  top:0;
+
+  width:100%;
+  height:100%;
+
+  transform-style:preserve-3d;
+
+  filter:
+    drop-shadow(
+      0 24px 30px rgba(70,40,45,.20)
+    );
+}
+
+
+/* =========================================================
+   ENVELOPE BACK
+   ========================================================= */
+
+.envelope-back{
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:1;
+
+  border-radius:14px;
+
+  border:
+    1px solid rgba(120,80,85,.25);
 
   background:
-    linear-gradient(145deg,#f7e1dc,#eacbc7);
+    linear-gradient(
+      145deg,
+      #fffdf9,
+      #f6e8e3
+    );
 
-  box-shadow:0 8px 15px rgba(80,45,52,.08);
-}
-
-.flap::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    120deg,
-    rgba(255,255,255,.38),
-    transparent 45%
-  );
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.9),
+    inset 0 -12px 25px rgba(100,60,70,.05);
 }
 
 
-/* ---------- Letter ---------- */
+/* =========================================================
+   LETTER
+
+   IMPORTANT:
+   Letter stays INSIDE the envelope.
+   It only moves upward when opened.
+   ========================================================= */
 
 .letter{
+
   position:absolute;
-  z-index:3;
+
   left:5%;
-  bottom:4%;
+
+  bottom:5%;
+
   width:90%;
+
   height:91%;
 
-  padding:27px 22px 24px;
+  z-index:3;
 
   overflow:hidden;
+
+  padding:
+    25px 20px 20px;
 
   border-radius:8px;
 
   background:
-    linear-gradient(rgba(255,255,255,.75),rgba(255,252,244,.92)),
+
+    linear-gradient(
+      rgba(255,255,255,.88),
+      rgba(255,252,244,.96)
+    ),
+
     repeating-linear-gradient(
       0deg,
-      transparent 0px,
+      transparent 0,
       transparent 27px,
-      rgba(150,120,100,.055) 28px
+      rgba(140,110,90,.045) 28px
     );
 
   box-shadow:
-    0 8px 25px rgba(58,37,39,.15),
-    inset 0 0 20px rgba(160,120,100,.06);
+    0 8px 20px rgba(60,40,40,.13);
 
-  transform:translateY(0) scale(.98);
+  transform:
+    translateY(0)
+    scale(.98);
 
   transition:
-    transform 1.65s cubic-bezier(.18,.8,.18,1),
-    box-shadow 1s ease;
+    transform 1.65s
+    cubic-bezier(.18,.78,.18,1);
 
-  text-align:left;
 }
+
+
+/* Letter paper texture */
 
 .letter::before{
+
   content:"";
+
   position:absolute;
+
   inset:0;
+
   pointer-events:none;
+
   background:
-    radial-gradient(circle at 20% 20%,rgba(180,140,110,.08),transparent 30%),
-    radial-gradient(circle at 80% 80%,rgba(180,140,110,.06),transparent 30%);
+
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(180,140,110,.07),
+      transparent 30%
+    ),
+
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(180,140,110,.06),
+      transparent 30%
+    );
 }
 
+
+/* Letter scroll area */
+
 .letter-content{
+
   position:relative;
+
   z-index:2;
+
+  width:100%;
   height:100%;
-  overflow:auto;
+
+  overflow-y:auto;
+
   scrollbar-width:none;
+
+  text-align:left;
 }
 
 .letter-content::-webkit-scrollbar{
   display:none;
 }
 
-.letter h2{
-  margin:0 0 18px;
+
+/* Letter heading */
+
+.letter-heading{
+
+  margin:
+    0 0 15px;
+
   text-align:center;
-  color:#825460;
+
   font-size:22px;
+
   font-weight:normal;
+
+  color:#81515c;
 }
 
+
+/* =========================================================
+   INSIDE CARD IMAGE AREA
+
+   Replace this section with your image if needed.
+   ========================================================= */
+
 .letter-image{
+
   width:100%;
-  height:75px;
-  margin-bottom:17px;
+
+  height:70px;
+
+  margin-bottom:16px;
+
   border-radius:7px;
 
-  /* =======================================================
-     INSIDE-CARD IMAGE:
-     Replace the background-image below with your own image.
-     Example:
-     background-image:url("inside.jpg");
-     ======================================================= */
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  color:#a17b81;
+
+  font-size:12px;
+
+  letter-spacing:.5px;
 
   background:
     linear-gradient(
       135deg,
-      rgba(132,82,93,.08),
-      rgba(255,255,255,.3)
+      rgba(130,80,90,.07),
+      rgba(255,255,255,.35)
     );
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  color:#a47b82;
-  font-size:12px;
-  letter-spacing:1px;
 }
+
+
+/* =========================================================
+   LETTER TEXT
+   ========================================================= */
 
 .letter-text{
-  font-size:16px;
-  line-height:1.9;
-  color:#5c4c4e;
-  white-space:pre-wrap;
+
+  font-size:15px;
+
+  line-height:1.85;
+
+  color:#5b4b4e;
 }
+
+.letter-text p{
+
+  margin:
+    0 0 15px;
+}
+
+.letter-text strong{
+
+  color:#754754;
+}
+
+
+/* Signature */
 
 .signature{
-  margin-top:24px;
+
+  margin-top:20px;
+
+  padding-bottom:10px;
+
   text-align:right;
-  color:#825460;
-  font-size:15px;
+
+  font-size:14px;
+
+  color:#81515c;
 }
 
 
-/* ---------- Front title ---------- */
+/* =========================================================
+   ENVELOPE FRONT
+
+   This covers the lower part of the letter while closed.
+   ========================================================= */
+
+.envelope-front{
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:5;
+
+  pointer-events:none;
+
+  border-radius:14px;
+
+  background:
+
+    linear-gradient(
+      145deg,
+      transparent 48.7%,
+      rgba(225,198,191,.9) 49.5%,
+      transparent 50.2%
+    ),
+
+    linear-gradient(
+      35deg,
+      transparent 48.7%,
+      rgba(225,198,191,.9) 49.5%,
+      transparent 50.2%
+    );
+
+}
+
+
+/* =========================================================
+   ENVELOPE FLAP
+
+   This sits ABOVE the letter when closed.
+   ========================================================= */
+
+.flap{
+
+  position:absolute;
+
+  left:0;
+  top:0;
+
+  width:100%;
+  height:62%;
+
+  z-index:8;
+
+  transform-origin:
+    top center;
+
+  transform-style:preserve-3d;
+
+  clip-path:
+    polygon(
+      0 0,
+      100% 0,
+      50% 100%
+    );
+
+  background:
+    linear-gradient(
+      145deg,
+      #f7e1dc,
+      #e9cac6
+    );
+
+  box-shadow:
+    0 8px 15px
+    rgba(70,40,45,.10);
+
+  transition:
+    transform 1.45s
+    cubic-bezier(.22,.75,.18,1);
+}
+
+
+/* Flap highlight */
+
+.flap::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255,255,255,.35),
+      transparent 48%
+    );
+
+}
+
+
+/* =========================================================
+   FRONT TITLE
+   ========================================================= */
 
 .title{
+
   position:absolute;
-  z-index:10;
+
   left:0;
   top:92px;
+
   width:100%;
+
+  z-index:10;
+
   pointer-events:none;
+
   transition:
     opacity .5s ease,
     transform .7s ease;
 }
 
-.date-title{
+.title h1{
+
   margin:0;
+
   font-size:28px;
-  color:#744854;
-  letter-spacing:.5px;
+
+  font-weight:normal;
+
+  color:#754754;
 }
 
-.date-subtitle{
-  margin:9px 0 0;
+.title p{
+
+  margin:
+    9px 0 0;
+
   font-size:15px;
-  color:#8c656b;
+
+  color:#8b666c;
 }
 
 
-/* ---------- Open button ---------- */
+/* =========================================================
+   OPEN BUTTON
+   ========================================================= */
 
 .open-btn{
-  margin-top:27px;
+
+  margin-top:28px;
 
   min-height:52px;
-  padding:0 30px;
 
-  border:0;
-  border-radius:999px;
+  padding:
+    0 30px;
 
-  color:#fff;
+  border:none;
+
+  border-radius:50px;
 
   background:
-    linear-gradient(135deg,#8d5663,#744450);
+    linear-gradient(
+      135deg,
+      #8d5663,
+      #744450
+    );
 
-  box-shadow:
-    0 10px 25px rgba(116,68,80,.25),
-    inset 0 1px 0 rgba(255,255,255,.25);
+  color:white;
 
   font-family:inherit;
+
   font-size:15px;
+
   font-weight:bold;
+
   letter-spacing:.4px;
 
   cursor:pointer;
 
+  box-shadow:
+    0 10px 25px
+    rgba(116,68,80,.25),
+
+    inset 0 1px 0
+    rgba(255,255,255,.25);
+
   transition:
     transform .25s ease,
-    box-shadow .25s ease,
-    opacity .4s ease;
+    opacity .5s ease;
 }
 
 .open-btn:active{
+
   transform:scale(.96);
-}
 
-.open-btn:hover{
-  box-shadow:
-    0 14px 30px rgba(116,68,80,.3);
 }
 
 
-/* ---------- Close button ---------- */
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
 
 .close-btn{
-  display:block;
 
-  margin:17px auto 0;
+  margin:
+    17px auto 0;
 
   min-height:45px;
-  padding:0 23px;
 
-  border:1px solid rgba(125,78,88,.5);
-  border-radius:999px;
+  padding:
+    0 23px;
 
-  background:rgba(255,255,255,.28);
+  border:
+    1px solid
+    rgba(125,78,88,.5);
+
+  border-radius:50px;
+
+  background:
+    rgba(255,255,255,.35);
+
   color:#7b4c58;
 
   font-family:inherit;
+
   font-size:13px;
 
   cursor:pointer;
 
   opacity:0;
+
   pointer-events:none;
 
   transition:
@@ -414,26 +689,140 @@ body{
 }
 
 .close-btn:active{
+
   transform:scale(.96);
+
 }
 
 
-/* ---------- Music ---------- */
+/* =========================================================
+   OPEN STATE
+
+   Letter comes OUT of the envelope.
+   ========================================================= */
+
+.container.open .letter{
+
+  transform:
+    translateY(-145px)
+    scale(1);
+
+  z-index:9;
+
+}
+
+
+/* Flap opens */
+
+.container.open .flap{
+
+  transform:
+    rotateX(180deg);
+
+}
+
+
+/* Hide front title */
+
+.container.open .title{
+
+  opacity:0;
+
+  transform:
+    translateY(-15px);
+}
+
+
+/* Hide open button */
+
+.container.open .open-btn{
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transform:
+    translateY(12px);
+}
+
+
+/* Show close button */
+
+.container.open .close-btn{
+
+  opacity:1;
+
+  pointer-events:auto;
+
+  transition-delay:
+    1.1s;
+}
+
+
+/* =========================================================
+   LETTER REVEAL
+   ========================================================= */
+
+.reveal{
+
+  animation:
+    letterReveal
+    1.8s
+    ease
+    1.3s
+    both;
+}
+
+@keyframes letterReveal{
+
+  from{
+
+    opacity:0;
+
+    transform:
+      translateY(12px);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:
+      translateY(0);
+
+  }
+
+}
+
+
+/* =========================================================
+   MUSIC BUTTON
+   ========================================================= */
 
 .music-btn{
+
   position:fixed;
+
   z-index:30;
-  right:18px;
+
   top:18px;
+  right:18px;
 
   width:43px;
   height:43px;
 
-  border:1px solid rgba(125,78,88,.18);
+  border:
+    1px solid
+    rgba(125,78,88,.18);
+
   border-radius:50%;
 
-  background:rgba(255,255,255,.55);
-  backdrop-filter:blur(10px);
+  background:
+    rgba(255,255,255,.58);
+
+  backdrop-filter:
+    blur(10px);
 
   color:#744854;
 
@@ -441,80 +830,46 @@ body{
 
   cursor:pointer;
 
-  box-shadow:0 6px 18px rgba(70,40,45,.1);
-}
-
-
-/* ---------- Open State ---------- */
-
-.container.open .flap{
-  transform:rotateX(180deg);
-  z-index:2;
-}
-
-.container.open .letter{
-  transform:translateY(-145px) scale(1);
-  z-index:9;
   box-shadow:
-    0 20px 40px rgba(58,37,39,.18);
-}
-
-.container.open .title{
-  opacity:0;
-  transform:translateY(-15px);
-}
-
-.container.open .open-btn{
-  opacity:0;
-  pointer-events:none;
-  transform:translateY(15px);
-}
-
-.container.open .close-btn{
-  opacity:1;
-  pointer-events:auto;
-  transition-delay:1.1s;
+    0 6px 18px
+    rgba(70,40,45,.10);
 }
 
 
-/* ---------- Letter reveal ---------- */
-
-.reveal{
-  animation:revealLetter 1.8s ease both;
-  animation-delay:1.35s;
-}
-
-@keyframes revealLetter{
-  from{
-    opacity:0;
-    transform:translateY(12px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-
-/* ---------- Hearts ---------- */
+/* =========================================================
+   FLOATING HEARTS
+   ========================================================= */
 
 .heart{
+
   position:fixed;
-  z-index:5;
+
+  z-index:4;
+
   bottom:-30px;
+
   pointer-events:none;
 
-  color:rgba(125,78,88,.32);
+  color:
+    rgba(125,78,88,.32);
 
   font-size:16px;
 
   animation:
-    heartFloat linear forwards;
+    heartFloat
+    linear
+    forwards;
 }
 
 @keyframes heartFloat{
+
   0%{
-    transform:translateY(0) rotate(0deg) scale(.8);
+
+    transform:
+      translateY(0)
+      rotate(0)
+      scale(.8);
+
     opacity:0;
   }
 
@@ -527,94 +882,129 @@ body{
   }
 
   100%{
+
     transform:
       translateY(-110vh)
       rotate(25deg)
       scale(1.15);
+
     opacity:0;
   }
+
 }
 
 
-/* ---------- Opening glow ---------- */
+/* =========================================================
+   OPENING LIGHT
+   ========================================================= */
 
-.opening-glow{
+.opening-light{
+
   position:fixed;
+
   inset:0;
+
   z-index:2;
+
   pointer-events:none;
 
   background:
     radial-gradient(
       circle at center,
-      rgba(255,255,255,.75),
+      rgba(255,255,255,.8),
       transparent 45%
     );
 
   opacity:0;
 
-  transition:opacity 1.2s ease;
+  transition:
+    opacity 1.2s ease;
 }
 
-.container.open ~ .opening-glow{
-  opacity:.45;
+.container.open ~ .opening-light{
+
+  opacity:.35;
+
 }
 
 
-/* ---------- Responsive ---------- */
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media(max-width:390px){
 
-  .envelope-wrap{
+  .envelope-area{
+
     height:245px;
   }
 
-  .date-title{
-    font-size:24px;
-  }
-
   .title{
+
     top:78px;
   }
 
+  .title h1{
+
+    font-size:24px;
+  }
+
   .letter{
-    padding:22px 17px;
+
+    padding:
+      21px 16px 18px;
   }
 
   .letter-text{
-    font-size:15px;
+
+    font-size:14px;
+
     line-height:1.8;
   }
 
   .container.open .letter{
-    transform:translateY(-128px) scale(1);
+
+    transform:
+      translateY(-126px)
+      scale(1);
   }
+
 }
+
+
+/* Small height screens */
 
 @media(max-height:650px){
 
-  .envelope-wrap{
+  .envelope-area{
+
     height:220px;
   }
 
   .container.open .letter{
-    transform:translateY(-110px);
+
+    transform:
+      translateY(-108px);
   }
+
 }
 
 
-/* Reduce motion for accessibility */
+/* Accessibility */
 
 @media(prefers-reduced-motion:reduce){
 
-  *,
-  *::before,
-  *::after{
+  *{
+
     animation-duration:.01ms !important;
+
     animation-iteration-count:1 !important;
+
     transition-duration:.01ms !important;
   }
+
 }
+
 </style>
 </head>
 
@@ -622,204 +1012,273 @@ body{
 <body>
 
 
-<!-- Ambient background -->
+<!-- =========================================================
+     BACKGROUND
+     ========================================================= -->
 
-<div class="ambient" id="particles"></div>
+<div class="background">
 
-<div class="opening-glow"></div>
+  <div class="background-glow one"></div>
+
+  <div class="background-glow two"></div>
+
+</div>
 
 
-<!-- ========================================================
+<div class="opening-light"></div>
+
+
+<!-- =========================================================
      MUSIC BUTTON
-     ======================================================== -->
+     ========================================================= -->
 
 <button
   class="music-btn"
   id="musicBtn"
-  aria-label="Music"
-  onclick="toggleMusic()">
+  onclick="toggleMusic()"
+  aria-label="Music">
+
   🔇
+
 </button>
 
 
-<div class="container" id="card">
+<!-- =========================================================
+     MAIN CARD
+     ========================================================= -->
+
+<div
+  class="container"
+  id="card">
 
 
-  <!-- ======================================================
+  <!-- =======================================================
        ENVELOPE
-       ====================================================== -->
+       ======================================================= -->
 
-  <div class="envelope-wrap">
+  <div class="envelope-area">
 
-    <div class="envelope" id="envelope">
-
-      <div class="envelope-body"></div>
+    <div class="envelope">
 
 
-      <!-- Letter inside envelope -->
+      <!-- Envelope back -->
+
+      <div class="envelope-back"></div>
+
+
+      <!-- ===================================================
+           LETTER
+           =================================================== -->
 
       <div class="letter">
 
         <div class="letter-content">
 
-          <h2>For You 💌</h2>
 
+          <h2 class="letter-heading">
+            For You 💌
+          </h2>
+
+
+          <!-- =================================================
+               INSIDE CARD IMAGE
+
+               নিজের image দিতে চাইলে এখানে পরিবর্তন করবে।
+               ================================================= -->
 
           <div class="letter-image">
+
             A little space for your photo
+
           </div>
 
 
           <!-- =================================================
-               YOUR PERSONAL LETTER
-               
-               Replace ONLY the text below with your own letter.
+               YOUR LETTER
                ================================================= -->
 
-```html
-<!-- =================================================
-     YOUR PERSONAL LETTER
-     ================================================= -->
+          <div
+            class="letter-text reveal"
+            id="letterText">
 
-<div class="letter-text reveal" id="letterText">
 
-  <p>
-    <strong>প্রিয় তুমি,</strong> 💌
-  </p>
+            <p>
+              <strong>প্রিয় তুমি,</strong> 💌
+            </p>
 
-  <p>
-    আজ ১ সেপ্টেম্বর—চিঠি দিবস।<br>
-    ভাবলাম, আজ তোমাকে এমন কিছু কথা লিখি, যেগুলো হয়তো সামনে দাঁড়িয়ে কখনো বলা হয়ে ওঠেনি।
-  </p>
 
-  <p>
-    জানো, কিছু মানুষ জীবনে হঠাৎ করেই আসে, অথচ কখন যে তারা মনের খুব কাছের একজন হয়ে যায়, সেটা বোঝাই যায় না। তুমিও ঠিক তেমনই একজন।
-  </p>
+            <p>
+              আজ ১ সেপ্টেম্বর—চিঠি দিবস।<br>
+              ভাবলাম, আজ তোমাকে এমন কিছু কথা লিখি,
+              যেগুলো হয়তো সামনে দাঁড়িয়ে কখনো বলা হয়ে ওঠেনি।
+            </p>
 
-  <p>
-    তোমার সাথে কথা বললে সময়টা কেন যেন একটু দ্রুত চলে যায়।<br>
-    তোমার একটা ছোট্ট মেসেজও কখনো কখনো পুরো দিনটা ভালো করে দিতে পারে। আর তোমার কথা মনে পড়লে, অকারণেই মুখে একটা হাসি চলে আসে।
-  </p>
 
-  <p>
-    হয়তো তোমাকে নিয়ে আমার অনুভূতিগুলো খুব সুন্দর করে প্রকাশ করতে পারি না। কিন্তু সত্যি বলতে, তোমাকে আমি শুধু পছন্দ করি না—তোমার প্রতি আমার একটা আলাদা টান আছে, একটা মায়া আছে।
-  </p>
+            <p>
+              জানো, কিছু মানুষ জীবনে হঠাৎ করেই আসে,
+              অথচ কখন যে তারা মনের খুব কাছের একজন হয়ে যায়,
+              সেটা বোঝাই যায় না। তুমিও ঠিক তেমনই একজন।
+            </p>
 
-  <p>
-    তোমার হাসিটা আমার ভালো লাগে, তোমার কথাগুলো মনে থাকে, আর তোমার উপস্থিতিটা অদ্ভুতভাবে মন ভালো করে দেয়।
-  </p>
 
-  <p>
-    কখনো যদি জানতে চাও,
-    <strong>“আমার মধ্যে এমন কী আছে যে তুমি আমাকে এতটা মনে রাখো?”</strong>
-  </p>
+            <p>
+              তোমার সাথে কথা বললে সময়টা কেন যেন একটু দ্রুত চলে যায়।
+              তোমার একটা ছোট্ট মেসেজও কখনো কখনো পুরো দিনটা ভালো করে দিতে পারে।
+              আর তোমার কথা মনে পড়লে, অকারণেই মুখে একটা হাসি চলে আসে।
+            </p>
 
-  <p>
-    তাহলে হয়তো আমার উত্তর হবে—
-  </p>
 
-  <p>
-    <strong>
-      “জানি না। শুধু জানি, তোমাকে মনে পড়লে মনটা অন্যরকম হয়ে যায়।” ❤️
-    </strong>
-  </p>
+            <p>
+              হয়তো তোমাকে নিয়ে আমার অনুভূতিগুলো খুব সুন্দর করে প্রকাশ করতে পারি না।
+              কিন্তু সত্যি বলতে, তোমাকে আমি শুধু পছন্দ করি না—
+              তোমার প্রতি আমার একটা আলাদা টান আছে, একটা মায়া আছে।
+            </p>
 
-  <p>
-    আমি ভবিষ্যৎ নিয়ে বড় কোনো প্রতিশ্রুতি দিতে চাই না।<br>
-    শুধু চাই, আমাদের এই সুন্দর অনুভূতিটুকু যেন সুন্দরই থাকে।<br>
-    কিছু সম্পর্কের নাম না থাকলেও তারা মনের কাছে অনেক বেশি বিশেষ হয়ে থাকে।
-  </p>
 
-  <p>
-    আর যদি কোনোদিন তুমি আমার চোখের দিকে তাকিয়ে জিজ্ঞেস করো,
-    <strong>“আমি কি সত্যিই তোমার কাছে এতটা বিশেষ?”</strong>
-  </p>
+            <p>
+              তোমার হাসিটা আমার ভালো লাগে,
+              তোমার কথাগুলো মনে থাকে,
+              আর তোমার উপস্থিতিটা অদ্ভুতভাবে মন ভালো করে দেয়।
+            </p>
 
-  <p>
-    তাহলে কোনো দ্বিধা ছাড়াই বলব—
-  </p>
 
-  <p>
-    <strong>
-      “হ্যাঁ। তুমি আমার কাছে সত্যিই খুব বিশেষ একজন।” ❤️
-    </strong>
-  </p>
+            <p>
+              কখনো যদি জানতে চাও,
+              <strong>
+                “আমার মধ্যে এমন কী আছে যে তুমি আমাকে এতটা মনে রাখো?”
+              </strong>
+            </p>
 
-  <p>
-    আজ চিঠি দিবসে তোমার জন্য আমার ছোট্ট একটা ইচ্ছে—
-  </p>
 
-  <p>
-    তুমি সবসময় হাসো, ভালো থেকো, আর জীবনের প্রতিটি সুন্দর মুহূর্ত তোমার প্রাপ্য হোক।
-  </p>
+            <p>
+              তাহলে হয়তো আমার উত্তর হবে—
+            </p>
 
-  <p>
-    আর হ্যাঁ...
-  </p>
 
-  <p>
-    এই চিঠিটা যখন পড়বে,<br>
-    তখন একবার হলেও একটু হেসো।<br>
-    কারণ কোথাও একজন মানুষ আছে, যে তোমার সেই হাসিটা কল্পনা করেই এই চিঠিটা লিখেছে। 💌
-  </p>
+            <p>
+              <strong>
+                “জানি না। শুধু জানি,
+                তোমাকে মনে পড়লে মনটা অন্যরকম হয়ে যায়।” ❤️
+              </strong>
+            </p>
 
-  <p>
-    <strong>শুভ চিঠি দিবস, প্রিয়।</strong> ❤️
-  </p>
 
-  <p class="signature">
-    — From Someone Who Cares ❤️
-  </p>
+            <p>
+              আমি ভবিষ্যৎ নিয়ে বড় কোনো প্রতিশ্রুতি দিতে চাই না।
+              শুধু চাই, আমাদের এই সুন্দর অনুভূতিটুকু যেন সুন্দরই থাকে।
+              কিছু সম্পর্কের নাম না থাকলেও তারা মনের কাছে অনেক বেশি বিশেষ হয়ে থাকে।
+            </p>
 
-</div>
+
+            <p>
+              আর যদি কোনোদিন তুমি আমার চোখের দিকে তাকিয়ে জিজ্ঞেস করো,
+              <strong>
+                “আমি কি সত্যিই তোমার কাছে এতটা বিশেষ?”
+              </strong>
+            </p>
+
+
+            <p>
+              তাহলে কোনো দ্বিধা ছাড়াই বলব—
+            </p>
+
+
+            <p>
+              <strong>
+                “হ্যাঁ। তুমি আমার কাছে সত্যিই খুব বিশেষ একজন।” ❤️
+              </strong>
+            </p>
+
+
+            <p>
+              আজ চিঠি দিবসে তোমার জন্য আমার ছোট্ট একটা ইচ্ছে—
+            </p>
+
+
+            <p>
+              তুমি সবসময় হাসো, ভালো থেকো,
+              আর জীবনের প্রতিটি সুন্দর মুহূর্ত তোমার প্রাপ্য হোক।
+            </p>
+
+
+            <p>
+              আর হ্যাঁ...
+            </p>
+
+
+            <p>
+              এই চিঠিটা যখন পড়বে,
+              তখন একবার হলেও একটু হেসো।
+              কারণ কোথাও একজন মানুষ আছে,
+              যে তোমার সেই হাসিটা কল্পনা করেই এই চিঠিটা লিখেছে। 💌
+            </p>
+
+
+            <p>
+              <strong>
+                শুভ চিঠি দিবস, প্রিয়। ❤️
+              </strong>
+            </p>
+
+
+            <p class="signature">
+              — From Someone Who Cares ❤️
+            </p>
+
+
+          </div>
 
         </div>
 
       </div>
 
 
-      <!-- Envelope flap -->
+      <!-- ===================================================
+           FRONT DESIGN
 
-      <div class="flap"></div>
-
-
-      <!-- =================================================
-           FRONT-CARD DESIGN
-           
-           এখানে নিজের front image/design বসাতে পারো।
-           ================================================= -->
+           এখানে চাইলে নিজের front image/design বসাতে পারো।
+           =================================================== -->
 
       <div class="envelope-front"></div>
 
 
-      <!-- =================================================
-           NAME / DATE
-           
-           এখানে date বা name পরিবর্তন করতে পারো।
-           ================================================= -->
+      <!-- ===================================================
+           FLAP
+           =================================================== -->
+
+      <div class="flap"></div>
+
+
+      <!-- ===================================================
+           FRONT TITLE
+
+           DATE / NAME এখান থেকে পরিবর্তন করবে।
+           =================================================== -->
 
       <div class="title">
 
-        <h1 class="date-title">
+        <h1>
           ১ সেপ্টেম্বর
         </h1>
 
-        <p class="date-subtitle">
+        <p>
           চিঠি দিবস 💌
         </p>
 
       </div>
+
 
     </div>
 
   </div>
 
 
-  <!-- Open button -->
+  <!-- =======================================================
+       OPEN BUTTON
+       ======================================================= -->
 
   <button
     class="open-btn"
-    id="openBtn"
     onclick="openCard()">
 
     CLICK TO OPEN 💌
@@ -827,208 +1286,298 @@ body{
   </button>
 
 
-  <!-- Close button -->
+  <!-- =======================================================
+       CLOSE BUTTON
+       ======================================================= -->
 
   <button
     class="close-btn"
-    id="closeBtn"
     onclick="closeCard()">
 
     CLOSE LETTER
 
   </button>
 
+
 </div>
 
 
-
-<!-- ========================================================
-     BACKGROUND MUSIC
-
-     IMPORTANT:
-     Put your music file URL here.
-
-     Example:
-     const MUSIC_URL = "music.mp3";
-
-     If music.mp3 is in the same GitHub repository,
-     you can simply use:
-
-     const MUSIC_URL = "music.mp3";
-     ======================================================== -->
-
 <script>
+
+/* =========================================================
+   BACKGROUND MUSIC
+
+   এখানে তোমার music file-এর নাম বসাবে।
+
+   যদি repository-তে music.mp3 upload করো:
+
+   const MUSIC_URL = "music.mp3";
+
+   ========================================================= */
 
 const MUSIC_URL = "";
 
 
-/* ---------- Music ---------- */
-
 let audio = null;
-let musicStarted = false;
+
+
+/* =========================================================
+   START MUSIC
+   ========================================================= */
 
 function startMusic(){
 
-  if(!MUSIC_URL) return;
+  if(!MUSIC_URL){
+    return;
+  }
+
 
   if(!audio){
+
     audio = new Audio(MUSIC_URL);
+
     audio.loop = true;
-    audio.volume = 0.28;
+
+    audio.volume = 0.25;
+
   }
+
 
   audio.play()
     .then(()=>{
-      musicStarted = true;
-      document.getElementById("musicBtn").textContent = "🔊";
+
+      document
+        .getElementById("musicBtn")
+        .textContent = "🔊";
+
     })
     .catch(()=>{
-      console.log("Music could not start.");
+
+      console.log(
+        "Music could not start."
+      );
+
     });
+
 }
 
 
+/* =========================================================
+   MUSIC BUTTON
+   ========================================================= */
+
 function toggleMusic(){
+
+  if(!MUSIC_URL){
+
+    alert(
+      "প্রথমে MUSIC_URL-এ music.mp3 বসাও।"
+    );
+
+    return;
+
+  }
+
 
   if(!audio){
 
-    if(!MUSIC_URL){
-      alert("প্রথমে MUSIC_URL-এ তোমার music file-এর নাম বা URL বসাও।");
-      return;
-    }
-
     startMusic();
+
     return;
+
   }
+
 
   if(audio.paused){
 
     audio.play();
 
-    document.getElementById("musicBtn").textContent = "🔊";
+    document
+      .getElementById("musicBtn")
+      .textContent = "🔊";
 
-  }else{
+  }
+
+  else{
 
     audio.pause();
 
-    document.getElementById("musicBtn").textContent = "🔇";
+    document
+      .getElementById("musicBtn")
+      .textContent = "🔇";
+
   }
+
 }
 
 
-/* ---------- Open card ---------- */
+/* =========================================================
+   OPEN CARD
+   ========================================================= */
 
 function openCard(){
 
-  const card = document.getElementById("card");
+  const card =
+    document.getElementById("card");
 
-  if(card.classList.contains("open")) return;
+
+  if(card.classList.contains("open")){
+
+    return;
+
+  }
+
+
+  /* Open envelope */
 
   card.classList.add("open");
 
-  /*
-    Music starts ONLY after user interaction.
-  */
+
+  /* Start music only after user interaction */
+
   startMusic();
 
-  /*
-    Create a few extra hearts during opening.
-  */
-  for(let i=0;i<5;i++){
 
-    setTimeout(createHeart,i*180);
+  /* Extra subtle hearts */
+
+  for(let i = 0; i < 5; i++){
+
+    setTimeout(
+      createHeart,
+      i * 220
+    );
 
   }
+
 }
 
 
-/* ---------- Close card ---------- */
+/* =========================================================
+   CLOSE CARD
+   ========================================================= */
 
 function closeCard(){
 
-  const card = document.getElementById("card");
+  const card =
+    document.getElementById("card");
+
 
   card.classList.remove("open");
 
 }
 
 
-/* ---------- Background particles ---------- */
+/* =========================================================
+   CREATE BACKGROUND PARTICLES
+   ========================================================= */
 
-const particleContainer =
-  document.getElementById("particles");
+const background =
+  document.querySelector(".background");
 
 
-for(let i=0;i<28;i++){
+for(let i = 0; i < 28; i++){
 
-  const p =
+  const particle =
     document.createElement("div");
 
-  p.className="particle";
 
-  p.style.left =
-    Math.random()*100+"%";
+  particle.className =
+    "particle";
 
-  p.style.animationDuration =
-    (7+Math.random()*8)+"s";
 
-  p.style.animationDelay =
-    (-Math.random()*10)+"s";
+  particle.style.left =
+    Math.random() * 100 + "%";
 
-  p.style.opacity =
-    (.15+Math.random()*.55);
 
-  particleContainer.appendChild(p);
+  particle.style.animationDuration =
+    (7 + Math.random() * 8) + "s";
+
+
+  particle.style.animationDelay =
+    (-Math.random() * 10) + "s";
+
+
+  particle.style.opacity =
+    (.15 + Math.random() * .55);
+
+
+  background.appendChild(
+    particle
+  );
+
 }
 
 
-/* ---------- Floating hearts ---------- */
+/* =========================================================
+   FLOATING HEARTS
+   ========================================================= */
 
 function createHeart(){
 
   const heart =
     document.createElement("div");
 
-  heart.className="heart";
+
+  heart.className =
+    "heart";
+
 
   heart.textContent =
-    Math.random()>.5 ? "♡" : "·";
+    Math.random() > .5
+      ? "♡"
+      : "·";
+
 
   heart.style.left =
-    Math.random()*100+"vw";
+    Math.random() * 100 + "vw";
+
 
   heart.style.fontSize =
-    (12+Math.random()*10)+"px";
+    (12 + Math.random() * 10) + "px";
+
 
   heart.style.animationDuration =
-    (5+Math.random()*5)+"s";
+    (5 + Math.random() * 5) + "s";
 
-  document.body.appendChild(heart);
+
+  document.body.appendChild(
+    heart
+  );
+
 
   setTimeout(()=>{
+
     heart.remove();
+
   },10000);
+
 }
 
 
-/*
-  Hearts stay subtle.
-*/
+/* Keep hearts subtle */
 
-setInterval(createHeart,1800);
+setInterval(
+  createHeart,
+  1900
+);
 
 
-/* ---------- Keyboard support ---------- */
+/* =========================================================
+   ESC KEY = CLOSE
+   ========================================================= */
 
-document.addEventListener("keydown",(event)=>{
+document.addEventListener(
+  "keydown",
+  function(event){
 
-  if(event.key==="Escape"){
+    if(event.key === "Escape"){
 
-    closeCard();
+      closeCard();
+
+    }
 
   }
-
-});
+);
 
 </script>
 
